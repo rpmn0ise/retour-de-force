@@ -1,0 +1,47 @@
+---
+layout: layouts/base.njk
+lang: fr
+permalink: /beamng/index.html
+---
+
+{% set t = i18n[lang | default('fr')] %}
+{% set mods = collections.beamng %}
+
+<section class="page-hero">
+  <p class="page-hero-tag">// beamng.drive</p>
+  <h1><span class="game-beamng">BeamNG</span> Mods</h1>
+  <p class="page-hero-sub">Véhicules, maps, scénarios et configs vérifiés.</p>
+  <span class="mod-count-badge">
+    <strong>{{ mods.length }}</strong> mods
+  </span>
+</section>
+
+<div class="mod-toolbar">
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" id="modSearch" type="search" placeholder="{{ t.search_placeholder }}" autocomplete="off" />
+  </div>
+
+  <div class="filter-group">
+    <span class="filter-label">{{ t.filter_category }}</span>
+    <button class="filter-btn active" data-filter-type="game" data-filter-value="all">{{ t.filter_all }}</button>
+    {% for cat in site.categories.beamng %}
+      <button class="filter-btn" data-filter-type="tag" data-filter-value="{{ cat | lower }}">{{ cat }}</button>
+    {% endfor %}
+  </div>
+
+  <select class="sort-select" id="modSort">
+    <option value="date">{{ t.sort_date }}</option>
+    <option value="name">{{ t.sort_name }}</option>
+  </select>
+</div>
+
+<div class="mods-grid">
+  {% for mod in mods %}
+    {% include "partials/mod-card.njk" %}
+  {% endfor %}
+  <div class="no-results hidden" id="noResults">
+    <div class="no-results-icon">⊘</div>
+    {{ t.no_results }}
+  </div>
+</div>

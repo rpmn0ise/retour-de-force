@@ -1,0 +1,79 @@
+---
+layout: layouts/base.njk
+---
+
+{% set t = i18n[lang | default('fr')] %}
+
+<div class="mod-detail">
+
+  <a href="javascript:history.back()" class="detail-back">{{ t.detail_back }}</a>
+
+  <!-- Header -->
+  <div class="detail-header">
+    <div>
+      <p class="detail-tag">
+        {% if game === 'beamng' %}BeamNG.drive{% else %}Assetto Corsa{% endif %}
+        {% if category %} · {{ category }}{% endif %}
+      </p>
+      <h1 class="detail-title">{{ title }}</h1>
+    </div>
+    <span class="card-game-badge badge-{{ game }}" style="position:relative;top:0;left:0;align-self:start;">
+      {% if game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
+    </span>
+  </div>
+
+  <!-- Meta grid -->
+  <div class="detail-meta-grid">
+    {% if author %}
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">{{ t.card_author }}</span>
+      <span class="detail-meta-value">{{ author }}</span>
+    </div>
+    {% endif %}
+
+    {% if version %}
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">{{ t.card_version }}</span>
+      <span class="detail-meta-value">v{{ version }}</span>
+    </div>
+    {% endif %}
+
+    {% if date %}
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">{{ t.card_updated }}</span>
+      <span class="detail-meta-value">{{ date | dateFormat }}</span>
+    </div>
+    {% endif %}
+
+    {% if tags %}
+    <div class="detail-meta-item">
+      <span class="detail-meta-label">{{ t.card_tags }}</span>
+      <span class="detail-meta-value">
+        {% for tag in tags %}<span class="tag">{{ tag }}</span> {% endfor %}
+      </span>
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Image -->
+  {% if image %}
+    <img class="detail-image" src="{{ image }}" alt="{{ title }}" />
+  {% endif %}
+
+  <!-- Download bar -->
+  {% if download %}
+  <div class="detail-download-bar">
+    <span class="detail-source-label">{{ t.detail_source }}</span>
+    <span class="detail-source-value">{{ source | default("—") }}</span>
+    <a href="{{ download }}" class="btn-download-main" target="_blank" rel="noopener">
+      ↓ {{ t.detail_download }}
+    </a>
+  </div>
+  {% endif %}
+
+  <!-- Markdown body -->
+  <div class="detail-body">
+    {{ content | safe }}
+  </div>
+
+</div>

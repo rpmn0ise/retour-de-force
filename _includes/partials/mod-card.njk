@@ -1,0 +1,70 @@
+{# partials/mod-card.njk — receives `mod` from loop context #}
+{% set t = i18n[lang | default('fr')] %}
+
+<article
+  class="mod-card"
+  data-title="{{ mod.data.title }}"
+  data-game="{{ mod.data.game }}"
+  data-category="{{ mod.data.category | lower }}"
+  data-tags="{{ mod.data.tags | join(',') | lower }}"
+  data-date="{{ mod.data.date }}"
+>
+  <!-- Thumb -->
+  <div class="card-thumb">
+    {% if mod.data.image %}
+      <img src="{{ mod.data.image }}" alt="{{ mod.data.title }}" loading="lazy" />
+    {% else %}
+      <div class="card-thumb-placeholder">
+        {% if mod.data.game === 'beamng' %}🚗{% else %}🏎{% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Game badge -->
+    <span class="card-game-badge badge-{{ mod.data.game }}">
+      {% if mod.data.game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
+    </span>
+
+    <!-- Verified -->
+    <span class="card-verified" title="{{ t.badge_verified }}">✓</span>
+  </div>
+
+  <!-- Body -->
+  <div class="card-body">
+    {% if mod.data.category %}
+      <span class="card-category">{{ mod.data.category }}</span>
+    {% endif %}
+
+    <h2 class="card-title">{{ mod.data.title }}</h2>
+
+    {% if mod.data.author %}
+      <p class="card-author"><span>by</span> {{ mod.data.author }}</p>
+    {% endif %}
+
+    {% if mod.data.tags %}
+      <div class="card-tags">
+        {% for tag in mod.data.tags %}
+          <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="card-meta">
+      <span class="card-version">
+        {% if mod.data.version %}v{{ mod.data.version }}{% endif %}
+      </span>
+      <span class="card-date">
+        {% if mod.data.date %}{{ mod.data.date | dateFormat }}{% endif %}
+      </span>
+    </div>
+  </div>
+
+  <!-- Footer actions -->
+  <div class="card-footer">
+    {% if mod.data.download %}
+      <a href="{{ mod.data.download }}" class="btn-download" target="_blank" rel="noopener">
+        ↓ {{ t.card_download }}
+      </a>
+    {% endif %}
+    <a href="{{ mod.url }}" class="btn-detail">→</a>
+  </div>
+</article>

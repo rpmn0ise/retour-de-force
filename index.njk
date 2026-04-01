@@ -1,0 +1,79 @@
+---
+layout: layouts/base.njk
+lang: fr
+---
+
+{% set t = i18n[lang | default('fr')] %}
+{% set allMods = collections.mods %}
+
+<!-- Hero -->
+<section class="page-hero">
+  <p class="page-hero-tag">// modvault</p>
+  <h1>
+    Mods vérifiés pour<br/>
+    <span class="game-beamng">BeamNG</span> &amp;
+    <span class="game-assetto">Assetto Corsa</span>
+  </h1>
+  <p class="page-hero-sub">{{ t.site_tagline }}</p>
+  <span class="mod-count-badge">
+    <strong>{{ allMods.length }}</strong> mods disponibles
+  </span>
+</section>
+
+<!-- Toolbar -->
+<div class="mod-toolbar">
+  <!-- Search -->
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input
+      class="search-input"
+      id="modSearch"
+      type="search"
+      placeholder="{{ t.search_placeholder }}"
+      autocomplete="off"
+    />
+  </div>
+
+  <!-- Game filter -->
+  <div class="filter-group">
+    <span class="filter-label">{{ t.filter_game }}</span>
+    <button class="filter-btn active" data-filter-type="game" data-filter-value="all">{{ t.filter_all }}</button>
+    <button class="filter-btn game-beamng" data-filter-type="game" data-filter-value="beamng">BeamNG</button>
+    <button class="filter-btn game-assetto" data-filter-type="game" data-filter-value="assetto">Assetto</button>
+  </div>
+
+  <!-- Category filter — dynamically built from mods -->
+  {% set categories = [] %}
+  {% for mod in allMods %}
+    {% if mod.data.category and mod.data.category not in categories %}
+      {% set categories = (categories.push(mod.data.category), categories) %}
+    {% endif %}
+  {% endfor %}
+
+  {% if categories.length %}
+  <div class="filter-group">
+    <span class="filter-label">{{ t.filter_category }}</span>
+    {% for cat in categories %}
+      <button class="filter-btn" data-filter-type="tag" data-filter-value="{{ cat | lower }}">{{ cat }}</button>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Sort -->
+  <select class="sort-select" id="modSort">
+    <option value="date">{{ t.sort_date }}</option>
+    <option value="name">{{ t.sort_name }}</option>
+  </select>
+</div>
+
+<!-- Grid -->
+<div class="mods-grid">
+  {% for mod in allMods %}
+    {% include "partials/mod-card.njk" %}
+  {% endfor %}
+
+  <div class="no-results hidden" id="noResults">
+    <div class="no-results-icon">⊘</div>
+    {{ t.no_results }}
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="{{ lang | default('fr') }}" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if title %}{{ title }} — {% endif %}{{ site.site_name }}</title>
+  <meta name="description" content="{% if description %}{{ description }}{% else %}{{ i18n[lang | default('fr')].site_tagline }}{% endif %}" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="nav-inner">
+      <a href="/" class="logo">
+        <span class="logo-mark">▸</span>
+        <span class="logo-text">{{ site.site_name }}</span>
+      </a>
+
+      <ul class="nav-links">
+        {% set t = i18n[lang | default('fr')] %}
+        <li><a href="/" class="nav-link {% if page.url == '/' %}active{% endif %}">{{ t.nav_home }}</a></li>
+        <li><a href="/beamng/" class="nav-link {% if '/beamng' in page.url %}active{% endif %}">{{ t.nav_beamng }}</a></li>
+        <li><a href="/assetto/" class="nav-link {% if '/assetto' in page.url %}active{% endif %}">{{ t.nav_assetto }}</a></li>
+        <li><a href="/about/" class="nav-link {% if page.url == '/about/' %}active{% endif %}">{{ t.nav_about }}</a></li>
+      </ul>
+
+      <div class="nav-controls">
+        <button class="ctrl-btn lang-toggle" id="langToggle" title="Switch language">
+          {{ t.toggle_lang }}
+        </button>
+        <button class="ctrl-btn theme-toggle" id="themeToggle" title="Toggle dark mode" aria-label="Toggle theme">
+          <span class="icon-sun">☀</span>
+          <span class="icon-moon">◑</span>
+        </button>
+        <button class="nav-burger" id="navBurger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-logo">{{ site.site_name }}</span>
+      <p class="footer-text">{% set t = i18n[lang | default('fr')] %}{{ t.footer_text }}</p>
+      <span class="footer-badge">
+        <span class="badge-dot"></span> Discord-verified
+      </span>
+    </div>
+  </footer>
+
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>

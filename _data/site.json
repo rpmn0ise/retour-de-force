@@ -1,0 +1,10 @@
+{
+  "site_name": "ModVault",
+  "base_url": "https://ton-username.github.io/modvault",
+  "default_lang": "fr",
+  "games": ["beamng", "assetto"],
+  "categories": {
+    "beamng": ["Véhicule", "Map", "Scénario", "Config", "Utilitaire"],
+    "assetto": ["Voiture", "Circuit", "Skin", "App", "Config"]
+  }
+}
