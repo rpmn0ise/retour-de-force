@@ -3,6 +3,7 @@ const markdownIt = require("markdown-it");
 module.exports = function (eleventyConfig) {
   // Passthrough copies
   eleventyConfig.addPassthroughCopy("assets");
+  eleventyConfig.addPassthroughCopy("CNAME");
 
   // Markdown
   const md = markdownIt({ html: true, linkify: true, typographer: true });
@@ -38,6 +39,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("jsonify", (data) => JSON.stringify(data));
 
   return {
+    pathPrefix: "/retour-de-force/",
     dir: {
       input: ".",
       output: "_site",
