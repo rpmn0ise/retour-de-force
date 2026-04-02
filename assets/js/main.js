@@ -57,6 +57,12 @@ langBtn?.addEventListener("click", () => {
   applyLang(next);
 });
 
+function applyLangBlocks(lang) {
+  document.querySelectorAll("[data-lang-block]").forEach((el) => {
+    el.style.display = el.dataset.langBlock === lang ? "" : "none";
+  });
+}
+
 // ── MOBILE NAV ─────────────────────────────────────────────────────────────
 const burger = document.getElementById("navBurger");
 const navLinks = document.getElementById("navLinks");
