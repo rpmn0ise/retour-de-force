@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ lang | default('fr') }}" data-theme="dark">
+<html lang="{{ lang | default('fr') }}" data-theme="dark" data-lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,17 +21,14 @@
     </a>
 
     <ul class="nav-links" id="navLinks">
-      {% set t = i18n[lang | default('fr')] %}
-      <li><a href="{{ '/' | url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">{{ t.nav_home }}</a></li>
-      <li><a href="{{ '/beamng/' | url }}" class="nav-link {% if '/beamng' in page.url %}active{% endif %}">{{ t.nav_beamng }}</a></li>
-      <li><a href="{{ '/assetto/' | url }}" class="nav-link {% if '/assetto' in page.url %}active{% endif %}">{{ t.nav_assetto }}</a></li>
-      <li><a href="{{ '/about/' | url }}" class="nav-link {% if page.url == '/about/' %}active{% endif %}">{{ t.nav_about }}</a></li>
+      <li><a href="{{ '/' | url }}"        class="nav-link {% if page.url == '/' %}active{% endif %}"      data-i18n="nav_home"></a></li>
+      <li><a href="{{ '/beamng/' | url }}" class="nav-link {% if '/beamng' in page.url %}active{% endif %}" data-i18n="nav_beamng"></a></li>
+      <li><a href="{{ '/assetto/' | url }}" class="nav-link {% if '/assetto' in page.url %}active{% endif %}" data-i18n="nav_assetto"></a></li>
+      <li><a href="{{ '/about/' | url }}"  class="nav-link {% if page.url == '/about/' %}active{% endif %}" data-i18n="nav_about"></a></li>
     </ul>
 
     <div class="nav-controls">
-      <button class="ctrl-btn" id="langToggle" title="Switch language">
-        {{ i18n[lang | default('fr')].toggle_lang }}
-      </button>
+      <button class="ctrl-btn" id="langToggle" title="Switch language" data-i18n="toggle_lang"></button>
       <button class="ctrl-btn theme-toggle" id="themeToggle" aria-label="Toggle theme">
         <span class="icon-sun">☀</span>
         <span class="icon-moon">◑</span>
@@ -50,13 +47,16 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <span class="footer-logo">{{ site.site_name }}</span>
-    <p class="footer-text">{{ i18n[lang | default('fr')].footer_text }}</p>
+    <p class="footer-text" data-i18n="footer_text"></p>
     <span class="footer-badge">
       <span class="badge-dot"></span> Discord-verified
     </span>
   </div>
 </footer>
 
+<script>
+  window.I18N = {{ i18n | jsonify | safe }};
+</script>
 <script src="{{ '/assets/js/main.js' | url }}"></script>
 </body>
 </html>
