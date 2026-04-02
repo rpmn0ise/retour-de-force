@@ -1,6 +1,6 @@
 ---
 layout: layouts/mod.njk
-title: "Toyota AE86 Trueno Drift Build"
+title: "test Toyota AE86 Trueno Drift Build"
 game: beamng
 category: "Véhicule"
 author: "DriftKing_FR"
