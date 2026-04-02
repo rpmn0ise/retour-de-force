@@ -16,11 +16,16 @@ themeBtn?.addEventListener("click", () => {
 // ── I18N — traduction côté client ─────────────────────────────────────────
 const I18N = window.I18N || {};
 
+function applyLangBlocks(lang) {
+  document.querySelectorAll("[data-lang-block]").forEach((el) => {
+    el.style.display = el.dataset.langBlock === lang ? "" : "none";
+  });
+}
+
 function applyLang(lang) {
   const t = I18N[lang];
   if (!t) return;
 
-  // Mettre à jour l'attribut lang du document
   html.setAttribute("lang", lang);
   html.setAttribute("data-lang", lang);
 
@@ -42,6 +47,9 @@ function applyLang(lang) {
     if (t[key] !== undefined) el.textContent = t[key];
   });
 
+  // Blocs de contenu long (about, etc.)
+  applyLangBlocks(lang);
+
   localStorage.setItem("mv-lang", lang);
 }
 
@@ -56,12 +64,6 @@ langBtn?.addEventListener("click", () => {
   const next = current === "fr" ? "en" : "fr";
   applyLang(next);
 });
-
-function applyLangBlocks(lang) {
-  document.querySelectorAll("[data-lang-block]").forEach((el) => {
-    el.style.display = el.dataset.langBlock === lang ? "" : "none";
-  });
-}
 
 // ── MOBILE NAV ─────────────────────────────────────────────────────────────
 const burger = document.getElementById("navBurger");
