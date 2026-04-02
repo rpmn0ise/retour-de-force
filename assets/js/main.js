@@ -13,24 +13,59 @@ themeBtn?.addEventListener("click", () => {
   localStorage.setItem("mv-theme", next);
 });
 
-// ── LANG ───────────────────────────────────────────────────────────────────
-const langBtn = document.getElementById("langToggle");
-const currentLang = localStorage.getItem("mv-lang") || "fr";
+// ── I18N — traduction côté client ─────────────────────────────────────────
+const I18N = window.I18N || {};
 
-// If the page doesn't match saved lang, redirect to /en/ or /fr/ equivalent
-// Simple approach: store pref and reload with ?lang= param
+function applyLang(lang) {
+  const t = I18N[lang];
+  if (!t) return;
+
+  // Mettre à jour l'attribut lang du document
+  html.setAttribute("lang", lang);
+  html.setAttribute("data-lang", lang);
+
+  // Tous les éléments avec data-i18n → textContent
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  // Inputs avec data-i18n-placeholder → placeholder
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Options de select avec data-i18n → textContent
+  document.querySelectorAll("option[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+
+  localStorage.setItem("mv-lang", lang);
+}
+
+// Lire la langue sauvegardée ou défaut FR
+const savedLang = localStorage.getItem("mv-lang") || "fr";
+applyLang(savedLang);
+
+// Bouton toggle
+const langBtn = document.getElementById("langToggle");
 langBtn?.addEventListener("click", () => {
-  const next = currentLang === "fr" ? "en" : "fr";
-  localStorage.setItem("mv-lang", next);
-  const url = new URL(window.location.href);
-  url.searchParams.set("lang", next);
-  window.location.href = url.toString();
+  const current = html.getAttribute("data-lang") || "fr";
+  const next = current === "fr" ? "en" : "fr";
+  applyLang(next);
 });
 
 // ── MOBILE NAV ─────────────────────────────────────────────────────────────
 const burger = document.getElementById("navBurger");
-const navLinks = document.querySelector(".nav-links");
+const navLinks = document.getElementById("navLinks");
 burger?.addEventListener("click", () => navLinks?.classList.toggle("open"));
+document.addEventListener("click", (e) => {
+  if (!burger?.contains(e.target) && !navLinks?.contains(e.target)) {
+    navLinks?.classList.remove("open");
+  }
+});
 
 // ── SEARCH + FILTER + SORT ─────────────────────────────────────────────────
 (function () {
@@ -48,75 +83,58 @@ burger?.addEventListener("click", () => navLinks?.classList.toggle("open"));
   let searchTerm = "";
   let sortMode = "date";
 
-  function getCardData(card) {
-    return {
-      title: (card.dataset.title || "").toLowerCase(),
-      game: card.dataset.game || "",
-      category: card.dataset.category || "",
-      tags: (card.dataset.tags || "").toLowerCase(),
-      date: card.dataset.date || "0",
-      name: (card.dataset.title || "").toLowerCase(),
-    };
-  }
-
   function applyFilters() {
     let visible = [];
 
     cards.forEach((card) => {
-      const d = getCardData(card);
-      const matchGame = activeGame === "all" || d.game === activeGame;
-      const matchSearch =
-        !searchTerm ||
-        d.title.includes(searchTerm) ||
-        d.tags.includes(searchTerm) ||
-        d.category.toLowerCase().includes(searchTerm);
-      const matchTags =
-        activeTags.size === 0 ||
-        [...activeTags].every((t) => d.tags.includes(t));
+      const title    = card.dataset.title    || "";
+      const game     = card.dataset.game     || "";
+      const category = card.dataset.category || "";
+      const tags     = card.dataset.tags     || "";
+      const date     = card.dataset.date     || "0";
+
+      const matchGame   = activeGame === "all" || game === activeGame;
+      const matchSearch = !searchTerm ||
+        title.includes(searchTerm) ||
+        tags.includes(searchTerm) ||
+        category.includes(searchTerm);
+      const matchTags = activeTags.size === 0 ||
+        [...activeTags].every(t => tags.includes(t));
 
       if (matchGame && matchSearch && matchTags) {
         card.classList.remove("hidden");
-        visible.push(card);
+        visible.push({ card, date, title });
       } else {
         card.classList.add("hidden");
       }
     });
 
-    // Sort
     visible.sort((a, b) => {
-      const da = getCardData(a);
-      const db = getCardData(b);
-      if (sortMode === "date") return db.date.localeCompare(da.date);
-      if (sortMode === "name") return da.name.localeCompare(db.name);
+      if (sortMode === "date") return b.date.localeCompare(a.date);
+      if (sortMode === "name") return a.title.localeCompare(b.title);
       return 0;
     });
+    visible.forEach(({ card }) => grid.appendChild(card));
 
-    // Re-order in DOM
-    visible.forEach((card) => grid.appendChild(card));
-
-    // No results
     if (noResults) {
       noResults.classList.toggle("hidden", visible.length > 0);
     }
   }
 
-  // Search
   searchInput?.addEventListener("input", (e) => {
     searchTerm = e.target.value.trim().toLowerCase();
     applyFilters();
   });
 
-  // Filter buttons
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       const type = btn.dataset.filterType;
-      const val = btn.dataset.filterValue;
+      const val  = btn.dataset.filterValue;
 
       if (type === "game") {
         activeGame = val;
-        document
-          .querySelectorAll('[data-filter-type="game"]')
-          .forEach((b) => b.classList.remove("active"));
+        document.querySelectorAll('[data-filter-type="game"]')
+          .forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
       }
 
@@ -134,7 +152,6 @@ burger?.addEventListener("click", () => navLinks?.classList.toggle("open"));
     });
   });
 
-  // Sort
   sortSelect?.addEventListener("change", (e) => {
     sortMode = e.target.value;
     applyFilters();
@@ -143,5 +160,5 @@ burger?.addEventListener("click", () => navLinks?.classList.toggle("open"));
 
 // ── STAGGERED CARD ANIMATION ───────────────────────────────────────────────
 document.querySelectorAll(".mod-card").forEach((card, i) => {
-  card.style.animationDelay = `${i * 40}ms`;
+  card.style.animationDelay = `${i * 45}ms`;
 });
