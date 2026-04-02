@@ -28,6 +28,13 @@
     "no_results": "Aucun mod trouvé.",
     "footer_text": "Tous les mods sont vérifiés via Discord avant publication.",
     "toggle_lang": "EN"
+    "nav_stats": "Stats",
+    "stats_total": "Total mods",
+    "stats_tags_total": "Tags utilisés",
+    "stats_repartition": "Répartition",
+    "stats_by_category": "par catégorie",
+    "stats_top_tags": "Top tags",
+    "stats_latest": "Dernier mod ajouté"
   },
   "en": {
     "site_name": "Force Feedback",
@@ -58,5 +65,12 @@
     "no_results": "No mods found.",
     "footer_text": "All mods are Discord-verified before publication.",
     "toggle_lang": "FR"
+    "nav_stats": "Stats",
+    "stats_total": "Total mods",
+    "stats_tags_total": "Tags used",
+    "stats_repartition": "Breakdown",
+    "stats_by_category": "by category",
+    "stats_top_tags": "Top tags",
+    "stats_latest": "Latest mod added"
   }
 }
