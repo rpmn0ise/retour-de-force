@@ -1,190 +1,102 @@
-# ModVault — Guide de mise en route
+**README.md** — remplace le contenu actuel sur GitHub :
 
-Site statique de référencement de mods pour **BeamNG.drive** et **Assetto Corsa**.  
-Stack : Eleventy (11ty) · GitHub Pages · Markdown · Zéro base de données.
+# Retour de Force
+
+Plateforme de référencement de mods vérifiés pour **BeamNG.drive** et **Assetto Corsa**.  
+Chaque mod est validé manuellement via Discord avant d'être publié.
+
+🔗 **Site en ligne** : [rpmn0ise.github.io/retour-de-force](https://rpmn0ise.github.io/retour-de-force/)
 
 ---
 
-## Structure du projet
+## Fonctionnalités
 
-```
-modvault/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          ← déploiement auto GitHub Actions
-├── _data/
-│   ├── i18n.json               ← traductions FR / EN
-│   └── site.json               ← config globale (nom, catégories...)
-├── _includes/
-│   ├── layouts/
-│   │   ├── base.njk            ← layout HTML global (header, footer)
-│   │   └── mod.njk             ← layout page détail d'un mod
-│   └── partials/
-│       └── mod-card.njk        ← composant carte mod (grid)
-├── assets/
-│   ├── css/main.css            ← tous les styles (dark mode, grid, cards...)
-│   ├── js/main.js              ← search, filtres, tri, theme toggle
-│   └── icons/favicon.svg
+- Catalogue de mods en grille avec page détail pour chaque mod
+- Filtres par jeu, catégorie et tags
+- Recherche en temps réel
+- Tri par date ou par nom
+- Page de statistiques (répartition, top tags, dernier ajout)
+- Dark mode / Light mode
+- Bilingue FR / EN côté client
+
+## Stack technique
+
+| Outil | Rôle |
+|---|---|
+| [Eleventy (11ty)](https://www.11ty.dev/) | Générateur de site statique |
+| GitHub Pages | Hébergement |
+| GitHub Actions | Déploiement automatique |
+| Markdown | Format de contenu |
+
+Zéro base de données. Zéro CMS. Zéro dépendance runtime.
+
+## Structure
+
+retour-de-force/
 ├── content/
-│   ├── _TEMPLATE.md            ← template à copier pour chaque nouveau mod
-│   ├── beamng/                 ← un .md par mod BeamNG
-│   └── assetto/                ← un .md par mod Assetto Corsa
-├── index.njk                   ← page d'accueil (tous les mods)
-├── beamng.njk                  ← listing BeamNG uniquement
-├── assetto.njk                 ← listing Assetto Corsa uniquement
-├── about.njk                   ← page à propos
-├── .eleventy.js                ← config Eleventy
-├── .gitignore
-└── package.json
-```
+│   ├── beamng/        ← un .md par mod BeamNG
+│   └── assetto/       ← un .md par mod Assetto Corsa
+├── _includes/         ← layouts et composants Nunjucks
+├── _data/             ← config, traductions i18n
+├── assets/            ← CSS, JS, icônes
+└── .github/workflows/ ← déploiement automatique
 
----
 
-## 1. Installation locale
-
-```bash
-# Cloner le repo
-git clone https://github.com/TON-USERNAME/modvault.git
-cd modvault
-
-# Installer les dépendances
-npm install
-
-# Lancer en dev (hot reload sur http://localhost:8080)
-npm start
-
-# Build de production (génère le dossier _site/)
-npm run build
-```
-
----
-
-## 2. Déploiement GitHub Pages
-
-### Première fois
-
-1. Créer un repo GitHub (ex: `modvault`)
-2. Pusher le code sur la branche `main`
-3. Aller dans **Settings → Pages**
-4. Source : **GitHub Actions**
-5. Le workflow `.github/workflows/deploy.yml` se déclenche automatiquement à chaque push sur `main`
-
-### URL du site
-
-Par défaut : `https://TON-USERNAME.github.io/modvault/`
-
-Si tu veux un sous-domaine custom, ajouter un fichier `CNAME` à la racine :
-```
-mods.ton-domaine.fr
-```
-
-### ⚠️ Adapter la base URL
-
-Dans `_data/site.json`, mettre à jour :
-```json
-"base_url": "https://TON-USERNAME.github.io/modvault"
-```
-
----
-
-## 3. Ajouter un mod
-
-### Copier le template
-
-```bash
-cp content/_TEMPLATE.md content/beamng/nom-du-mod.md
-# ou
-cp content/_TEMPLATE.md content/assetto/nom-du-mod.md
-```
-
-### Remplir le frontmatter
+## Frontmatter d'un mod
 
 ```yaml
 ---
 layout: layouts/mod.njk
-
 title: "Nom du mod"
 game: beamng          # beamng | assetto
-category: "Véhicule"  # voir liste ci-dessous
+category: "Véhicule"
 author: "NomAuteur"
-
 version: "1.0.0"
-date: 2024-03-15      # YYYY-MM-DD — utilisé pour le tri par date
-
-image: "https://i.imgur.com/XXXXXXX.jpg"   # URL image 16:9
-download: "https://lien-telechargement.com"
+date: 2024-03-15
+image: "https://i.imgur.com/XXXXXXX.jpg"
+download: "https://lien.com"
 source: "Discord #mods-beamng"
-
 tags:
   - drift
   - JDM
 ---
-
-Contenu markdown libre ici...
-```
-
-### Catégories disponibles
-
-| BeamNG | Assetto Corsa |
-|--------|--------------|
-| Véhicule | Voiture |
-| Map | Circuit |
-| Scénario | Skin |
-| Config | App |
-| Utilitaire | Config |
-
-Pour ajouter une catégorie, l'éditer dans `_data/site.json`.
-
-### Images
-
-Héberger les images sur **Imgur**, **Cloudinary**, ou tout CDN public.  
-Format recommandé : 16:9, minimum 800×450px, JPEG ou WebP.
-
----
-
-## 4. i18n (FR / EN)
-
-Les traductions sont dans `_data/i18n.json`.  
-L'utilisateur switche la langue via le bouton **FR/EN** dans la navbar — la préférence est sauvegardée en `localStorage`.
-
-Pour ajouter une langue :
-1. Ajouter une clé dans `i18n.json`
-2. Mettre à jour `langBtn` dans `assets/js/main.js`
-
----
-
-## 5. Personnaliser le design
-
-Toutes les variables CSS sont dans `assets/css/main.css` au début du fichier :
-
-```css
-:root {
-  --c-accent: #e8f048;     /* couleur d'accentuation principale */
-  --c-beamng: #f97316;     /* orange BeamNG */
-  --c-assetto: #3b82f6;    /* bleu Assetto */
-  --font-display: 'Syne';  /* police titres */
-  --font-mono: 'DM Mono';  /* police mono / labels */
-  ...
-}
 ```
 
 ---
 
-## 6. Renommer le site
-
-Remplacer `ModVault` par ton nom dans :
-- `_data/site.json` → `"site_name"`
-- `_data/i18n.json` → `"site_name"` (FR et EN)
-- `assets/icons/favicon.svg` (optionnel)
+*Tous les mods sont vérifiés via Discord avant publication.*
 
 ---
 
-## Stack & dépendances
+# Retour de Force (EN)
 
-| Package | Rôle |
-|---------|------|
-| `@11ty/eleventy` | Générateur de site statique |
-| `markdown-it` | Rendu markdown |
-| `gray-matter` | Parsing frontmatter |
+Verified mod listing platform for **BeamNG.drive** and **Assetto Corsa**.  
+Every mod is manually reviewed through Discord before being published.
 
-Pas de framework JS côté client. Pas de CSS framework. Zéro dépendance runtime.
+🔗 **Live site**: [rpmn0ise.github.io/retour-de-force](https://rpmn0ise.github.io/retour-de-force/)
+
+---
+
+## Features
+
+- Mod catalogue with grid layout and individual detail pages
+- Filters by game, category and tags
+- Real-time search
+- Sort by date or name
+- Statistics page (breakdown, top tags, latest addition)
+- Dark mode / Light mode
+- Bilingual FR / EN client-side
+
+## Tech stack
+
+| Tool | Role |
+|---|---|
+| [Eleventy (11ty)](https://www.11ty.dev/) | Static site generator |
+| GitHub Pages | Hosting |
+| GitHub Actions | Automatic deployment |
+| Markdown | Content format |
+
+No database. No CMS. No runtime dependencies.
+
+
+*All mods are Discord-verified before publication.*
