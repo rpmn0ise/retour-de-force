@@ -114,18 +114,10 @@ title: Stats
     </div>
   </div>
 
-  <!-- Top tags -->
+  <!-- Tags cloud — tous les tags de tous les mods -->
   <div class="stats-section">
     <h2 class="stats-section-title" data-i18n="stats_top_tags">Top tags</h2>
     <div class="tags-cloud">
-      {% set tagCounts = {} %}
-      {% for tag in allTags %}
-        {% if tagCounts[tag] %}
-          {% set _ = tagCounts.__set(tag, tagCounts[tag] + 1) %}
-        {% else %}
-          {% set _ = tagCounts.__set(tag, 1) %}
-        {% endif %}
-      {% endfor %}
       {% for mod in allMods %}
         {% for tag in mod.data.tags %}
           <span class="tag-stat">{{ tag }}</span>
