@@ -4,10 +4,10 @@ title: "Mustang S650"
 game: beamng
 category: "Véhicule"
 author: "Royal Rendering"
-version: "1.4"
+version: "1.7"
 date: 2026-04-03
 image: "https://c10.patreonusercontent.com/4/patreon-media/p/post/144831418/a1b8d53082994a2e9de9ad455b81ff2d/eyJxIjoxMDAsIndlYnAiOjB9/1.png?token-hash=-1QDdmR-6D1MBOLv7dzQAQVWyYyUMeBSY4wnOCshNIQ%3D&token-time=1776470400"
-download: "https://zerofs.link/f/D82PpfGjoUNjWCMeqfWygG/"
+download: "https://zerofs.link/f/eRYhJmdeGqcR24esTbzCdB/"
 source: "Discord"
 tags:
   - AWD
@@ -31,7 +31,7 @@ Ce mod est plein de technologie du monde réel, avec plus de 72 déclencheurs in
 
 ## Notes de version
 
-- **v1.4** — Version initiale
+- **v1.7** — Version initiale
 
 ## Crédits
 
