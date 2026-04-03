@@ -29,7 +29,7 @@ Chaque mod est validé manuellement via Discord avant d'être publié.
 Zéro base de données. Zéro CMS. Zéro dépendance runtime.
 
 ## Structure
-
+````txt
 retour-de-force/
 ├── content/
 │   ├── beamng/        ← un .md par mod BeamNG
@@ -38,7 +38,7 @@ retour-de-force/
 ├── _data/             ← config, traductions i18n
 ├── assets/            ← CSS, JS, icônes
 └── .github/workflows/ ← déploiement automatique
-
+````
 
 ## Frontmatter d'un mod
 
