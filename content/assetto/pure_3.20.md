@@ -34,7 +34,7 @@ hotfix : https://modsfire.com/0k8POK8138SS980
 
 ## Notes de version
 
-- **v1.0.0** — Version initiale
+- **v3.20** — Version initiale
 
 ## Crédits
 
