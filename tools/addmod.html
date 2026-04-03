@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Retour de Force — Soumettre un mod</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:        #0c0d0f;
+  --surface:   #13151a;
+  --surface2:  #1a1d24;
+  --border:    #262a34;
+  --border2:   #343848;
+  --text:      #e4e6f0;
+  --muted:     #6b7080;
+  --dim:       #3a3f50;
+  --accent:    #e8f048;
+  --accent2:   #b8be38;
+  --beamng:    #f97316;
+  --assetto:   #3b82f6;
+  --green:     #22c55e;
+  --font-d:    'Syne', sans-serif;
+  --font-m:    'DM Mono', monospace;
+  --r:         8px;
+  --r-lg:      14px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-m);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  background: rgba(12,13,15,.92);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+}
+.logo-mark { color: var(--accent); font-size: 18px; }
+.logo-text { font-family: var(--font-d); font-weight: 700; font-size: 16px; letter-spacing: -.02em; }
+.logo-sep { color: var(--dim); margin: 0 4px; }
+.logo-sub { color: var(--muted); font-size: 12px; letter-spacing: .06em; }
+
+/* ── LAYOUT ── */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 56px);
+}
+
+/* ── FORM PANEL ── */
+.form-panel {
+  padding: 40px 40px 80px;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.panel-title {
+  font-family: var(--font-d);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--muted);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Game selector */
+.game-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.game-btn {
+  padding: 16px;
+  border-radius: var(--r-lg);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .18s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.game-btn span { font-family: var(--font-m); font-size: 10px; font-weight: 400; opacity: .6; }
+.game-btn:hover { border-color: var(--border2); color: var(--text); }
+.game-btn.active-beamng { border-color: var(--beamng); color: var(--beamng); background: rgba(249,115,22,.07); }
+.game-btn.active-assetto { border-color: var(--assetto); color: var(--assetto); background: rgba(59,130,246,.07); }
+
+/* Field groups */
+.section-label {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 24px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.field { margin-bottom: 14px; }
+.field label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.field label .req { color: var(--accent); margin-left: 2px; }
+
+input[type=text], input[type=url], input[type=date], select, textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  color: var(--text);
+  font-family: var(--font-m);
+  font-size: 13px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color .18s;
+  appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(232,240,72,.06);
+}
+input::placeholder, textarea::placeholder { color: var(--dim); }
+select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7080' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+textarea { resize: vertical; min-height: 80px; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Tags input */
+.tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  min-height: 42px;
+  cursor: text;
+  transition: border-color .18s;
+}
+.tags-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(232,240,72,.06); }
+.tag-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 2px 10px 2px 8px;
+  font-size: 11px;
+  color: var(--text);
+  animation: tagIn .15s ease;
+}
+@keyframes tagIn { from { opacity:0; transform:scale(.85); } to { opacity:1; transform:scale(1); } }
+.tag-pill button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.tag-pill button:hover { color: var(--text); }
+#tagInput {
+  border: none;
+  background: none;
+  color: var(--text);
+  font-family: var(--font-m);
+  font-size: 13px;
+  outline: none;
+  padding: 2px 4px;
+  min-width: 80px;
+  flex: 1;
+}
+
+/* Source select + custom */
+.source-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+.source-pill {
+  padding: 8px 12px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-family: var(--font-m);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all .18s;
+}
+.source-pill:hover { border-color: var(--border2); color: var(--text); }
+.source-pill.active { border-color: var(--accent); color: var(--accent); background: rgba(232,240,72,.06); }
+
+/* ── PREVIEW PANEL ── */
+.preview-panel {
+  padding: 40px 40px 80px;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #0c0d0f;
+  border: none;
+  border-radius: var(--r);
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .18s;
+}
+.copy-btn:hover { background: var(--accent2); }
+.copy-btn.copied { background: var(--green); color: #fff; }
+
+.copy-filename {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--font-m);
+  letter-spacing: .04em;
+}
+
+.preview-box {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.preview-topbar {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #ff5f57; }
+.dot-y { background: #febc2e; }
+.dot-g { background: #28c840; }
+.preview-filename {
+  margin-left: 8px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+pre#mdPreview {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-m);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Syntax highlights */
+.md-key    { color: #7dd3fc; }
+.md-val    { color: #a5f3a0; }
+.md-str    { color: #fca5a5; }
+.md-h2     { color: var(--accent); font-weight: 600; }
+.md-tag    { color: #c4b5fd; }
+.md-quote  { color: var(--muted); font-style: italic; }
+.md-dash   { color: var(--muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .preview-panel { position: static; height: auto; }
+  .form-panel { border-right: none; border-bottom: 1px solid var(--border); }
+}
+@media (max-width: 600px) {
+  .form-panel, .preview-panel { padding: 24px 20px 60px; }
+  .field-row { grid-template-columns: 1fr; }
+  .source-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo-mark">▸</span>
+  <span class="logo-text">Retour de Force</span>
+  <span class="logo-sep">/</span>
+  <span class="logo-sub">Soumettre un mod</span>
+</header>
+
+<div class="layout">
+
+  <!-- ── FORMULAIRE ── -->
+  <div class="form-panel">
+
+    <div class="panel-title">Informations du mod</div>
+
+    <!-- Jeu -->
+    <div class="game-selector">
+      <button class="game-btn active-beamng" id="btnBeamng" onclick="setGame('beamng')">
+        BeamNG.drive
+        <span>Véhicule · Map · Scénario · Config</span>
+      </button>
+      <button class="game-btn" id="btnAssetto" onclick="setGame('assetto')">
+        Assetto Corsa
+        <span>Voiture · Circuit · Skin · App</span>
+      </button>
+    </div>
+
+    <!-- Infos de base -->
+    <div class="section-label">Infos de base</div>
+
+    <div class="field">
+      <label>Titre du mod <span class="req">*</span></label>
+      <input type="text" id="f_title" placeholder="ex: Toyota AE86 Trueno Drift Build" oninput="generate()"/>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Catégorie <span class="req">*</span></label>
+        <select id="f_category" onchange="generate()"></select>
+      </div>
+      <div class="field">
+        <label>Auteur <span class="req">*</span></label>
+        <input type="text" id="f_author" placeholder="ex: DriftKing_FR" oninput="generate()"/>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Version</label>
+        <input type="text" id="f_version" value="1.0.0" oninput="generate()"/>
+      </div>
+      <div class="field">
+        <label>Date de mise à jour</label>
+        <input type="date" id="f_date" oninput="generate()"/>
+      </div>
+    </div>
+
+    <!-- Médias & liens -->
+    <div class="section-label">Médias & liens</div>
+
+    <div class="field">
+      <label>URL image de preview <span style="color:var(--dim)">(Imgur, etc.)</span></label>
+      <input type="url" id="f_image" placeholder="https://i.imgur.com/XXXXXXX.jpg" oninput="generate()"/>
+    </div>
+
+    <div class="field">
+      <label>URL de téléchargement <span class="req">*</span></label>
+      <input type="url" id="f_download" placeholder="https://..." oninput="generate()"/>
+    </div>
+
+    <div class="field">
+      <label>Source</label>
+      <div class="source-grid">
+        <div class="source-pill active" onclick="selectSource(this, 'Discord')">Discord</div>
+        <div class="source-pill" onclick="selectSource(this, 'Google Drive')">Google Drive</div>
+        <div class="source-pill" onclick="selectSource(this, 'Nexus Mods')">Nexus Mods</div>
+        <div class="source-pill" onclick="selectSource(this, 'Forum')">Forum</div>
+      </div>
+      <input type="text" id="f_source" value="Discord" placeholder="Canal ou lien source" oninput="generate()"/>
+    </div>
+
+    <!-- Tags -->
+    <div class="section-label">Tags</div>
+
+    <div class="field">
+      <label>Tags <span style="color:var(--dim)">(Entrée pour valider)</span></label>
+      <div class="tags-wrap" id="tagsWrap" onclick="document.getElementById('tagInput').focus()">
+        <input type="text" id="tagInput" placeholder="drift, JDM, RWD..."/>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="section-label">Description</div>
+
+    <div class="field">
+      <label>Description courte <span class="req">*</span> <span style="color:var(--dim)">(SEO)</span></label>
+      <input type="text" id="f_desc" placeholder="Une phrase courte décrivant le mod" oninput="generate()"/>
+    </div>
+
+    <div class="field">
+      <label>Description longue <span style="color:var(--dim)">(optionnel, markdown)</span></label>
+      <textarea id="f_longdesc" rows="4" placeholder="Détails complets sur le mod, ce qu'il contient, ses particularités..." oninput="generate()"></textarea>
+    </div>
+
+  </div>
+
+  <!-- ── PREVIEW ── -->
+  <div class="preview-panel">
+
+    <div class="panel-title">Aperçu markdown</div>
+
+    <div class="preview-header">
+      <span class="copy-filename" id="previewFilename">—</span>
+      <button class="copy-btn" id="copyBtn" onclick="copyMd()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copier le .md
+      </button>
+    </div>
+
+    <div class="preview-box">
+      <div class="preview-topbar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="preview-filename" id="previewFilename2">nom-du-mod.md</span>
+      </div>
+      <pre id="mdPreview"></pre>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── État ──────────────────────────────────────────────────────────────────
+let currentGame = 'beamng';
+let tags = [];
+
+const CATEGORIES = {
+  beamng:  ['Véhicule', 'Map', 'Scénario', 'Config', 'Utilitaire'],
+  assetto: ['Voiture', 'Circuit', 'Skin', 'App', 'Config'],
+};
+
+const INSTALL = {
+  beamng: `## Installation
+
+1. Télécharger le fichier \`.zip\`
+2. Ouvrir **BeamNG.drive** → aller dans le **Repository** (icône carton)
+3. Glisser-déposer le fichier \`.zip\` dans la fenêtre
+4. Activer le mod dans la liste, puis redémarrer le jeu
+
+> Compatible BeamNG.drive 0.30+`,
+
+  assetto: `## Installation
+
+1. Télécharger le fichier \`.zip\`
+2. Extraire le contenu dans le dossier correspondant :
+   - **Voiture** → \`Assetto Corsa/content/cars/\`
+   - **Circuit** → \`Assetto Corsa/content/tracks/\`
+   - **Skin** → \`Assetto Corsa/content/cars/NOM_VOITURE/skins/\`
+3. Lancer **Content Manager** → vérifier que le mod apparaît
+
+> Compatible Assetto Corsa 1.16+ · Custom Shaders Patch recommandé`,
+};
+
+// ── Init ──────────────────────────────────────────────────────────────────
+document.getElementById('f_date').value = new Date().toISOString().split('T')[0];
+setGame('beamng');
+
+// ── Jeu ───────────────────────────────────────────────────────────────────
+function setGame(game) {
+  currentGame = game;
+  document.getElementById('btnBeamng').className = 'game-btn' + (game === 'beamng' ? ' active-beamng' : '');
+  document.getElementById('btnAssetto').className = 'game-btn' + (game === 'assetto' ? ' active-assetto' : '');
+  const sel = document.getElementById('f_category');
+  sel.innerHTML = CATEGORIES[game].map(c => `<option>${c}</option>`).join('');
+  generate();
+}
+
+// ── Source ────────────────────────────────────────────────────────────────
+function selectSource(el, val) {
+  document.querySelectorAll('.source-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('f_source').value = val;
+  generate();
+}
+
+// ── Tags ──────────────────────────────────────────────────────────────────
+const tagInput = document.getElementById('tagInput');
+tagInput.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ',') && tagInput.value.trim()) {
+    e.preventDefault();
+    addTag(tagInput.value.trim().replace(/,$/, ''));
+    tagInput.value = '';
+  }
+  if (e.key === 'Backspace' && !tagInput.value && tags.length) {
+    removeTag(tags.length - 1);
+  }
+});
+
+function addTag(val) {
+  if (!val || tags.includes(val)) return;
+  tags.push(val);
+  renderTags();
+  generate();
+}
+
+function removeTag(i) {
+  tags.splice(i, 1);
+  renderTags();
+  generate();
+}
+
+function renderTags() {
+  const wrap = document.getElementById('tagsWrap');
+  wrap.querySelectorAll('.tag-pill').forEach(p => p.remove());
+  tags.forEach((t, i) => {
+    const pill = document.createElement('div');
+    pill.className = 'tag-pill';
+    pill.innerHTML = `${t}<button onclick="removeTag(${i})">×</button>`;
+    wrap.insertBefore(pill, tagInput);
+  });
+}
+
+// ── Slugify ───────────────────────────────────────────────────────────────
+function slugify(str) {
+  return str.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '') || 'nom-du-mod';
+}
+
+// ── Génération markdown ───────────────────────────────────────────────────
+function getRaw() {
+  const title    = document.getElementById('f_title').value.trim();
+  const category = document.getElementById('f_category').value;
+  const author   = document.getElementById('f_author').value.trim();
+  const version  = document.getElementById('f_version').value.trim() || '1.0.0';
+  const date     = document.getElementById('f_date').value;
+  const image    = document.getElementById('f_image').value.trim();
+  const download = document.getElementById('f_download').value.trim();
+  const source   = document.getElementById('f_source').value.trim() || 'Discord';
+  const desc     = document.getElementById('f_desc').value.trim();
+  const longdesc = document.getElementById('f_longdesc').value.trim();
+
+  const tagList = tags.length
+    ? tags.map(t => `  - ${t}`).join('\n')
+    : '  - (aucun tag)';
+
+  const bodyDesc = longdesc || desc || 'Description à compléter.';
+
+  return `---
+layout: layouts/mod.njk
+title: "${title || 'Titre du mod'}"
+game: ${currentGame}
+category: "${category}"
+author: "${author || 'Auteur'}"
+version: "${version}"
+date: ${date || new Date().toISOString().split('T')[0]}
+image: "${image}"
+download: "${download}"
+source: "${source}"
+tags:
+${tagList}
+description: "${desc || 'Description courte.'}"
+---
+
+## Description
+
+${bodyDesc}
+
+${INSTALL[currentGame]}
+
+## Notes de version
+
+- **v${version}** — Version initiale
+
+## Crédits
+
+Créé par **${author || 'Auteur'}**. Vérifié et validé par l'équipe Retour de Force.
+`;
+}
+
+function highlight(raw) {
+  return raw
+    .replace(/^(layout|title|game|category|author|version|date|image|download|source|description):/gm,
+      m => `<span class="md-key">${m}</span>`)
+    .replace(/^(tags:|-{3})/gm, m => `<span class="md-tag">${m}</span>`)
+    .replace(/^  - .+/gm, m => `<span class="md-tag">${m}</span>`)
+    .replace(/^## .+/gm, m => `<span class="md-h2">${m}</span>`)
+    .replace(/^> .+/gm, m => `<span class="md-quote">${m}</span>`)
+    .replace(/^(\d+\. .+)/gm, m => `<span class="md-dash">${m}</span>`);
+}
+
+function generate() {
+  const raw  = getRaw();
+  const slug = slugify(document.getElementById('f_title').value.trim());
+  const fn   = `${slug}.md`;
+
+  document.getElementById('previewFilename').textContent  = `content/${currentGame}/${fn}`;
+  document.getElementById('previewFilename2').textContent = fn;
+  document.getElementById('mdPreview').innerHTML = highlight(raw);
+  document.getElementById('copyBtn').classList.remove('copied');
+  document.getElementById('copyBtn').innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copier le .md`;
+}
+
+// ── Copier ────────────────────────────────────────────────────────────────
+function copyMd() {
+  navigator.clipboard.writeText(getRaw()).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Copié !`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copier le .md`;
+    }, 2500);
+  });
+}
+
+generate();
+</script>
+</body>
+</html>
