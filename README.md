@@ -1,5 +1,3 @@
-**README.md** — remplace le contenu actuel sur GitHub :
-
 # Retour de Force
 
 Plateforme de référencement de mods vérifiés pour **BeamNG.drive** et **Assetto Corsa**.  
