@@ -35,7 +35,8 @@
     "stats_by_category": "par catégorie",
     "stats_top_tags": "Top tags",
     "stats_latest": "Dernier mod ajouté",
-    "nav_soumettre": "Soumettre"
+    "nav_soumettre": "Soumettre",
+    "filter_author": "Auteur"
   },
   "en": {
     "site_name": "Force Feedback",
@@ -73,6 +74,7 @@
     "stats_by_category": "by category",
     "stats_top_tags": "Top tags",
     "stats_latest": "Latest mod added",
-    "nav_soumettre": "Submit"
+    "nav_soumettre": "Submit",
+    "filter_author": "Author"
   }
 }
