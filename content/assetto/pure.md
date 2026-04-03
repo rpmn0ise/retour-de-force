@@ -1,6 +1,6 @@
 ---
 layout: layouts/mod.njk
-title: "Pure 3.20"
+title: "Pure"
 game: assetto
 category: "App"
 author: "Peter Boese"
