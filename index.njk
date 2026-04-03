@@ -23,11 +23,16 @@ lang: fr
     <input class="search-input" id="modSearch" type="search" data-i18n-placeholder="search_placeholder" autocomplete="off" />
   </div>
 
-  <div class="filter-group">
-    <span class="filter-label" data-i18n="filter_game"></span>
-    <button class="filter-btn active" data-filter-type="game" data-filter-value="all" data-i18n="filter_all"></button>
-    <button class="filter-btn game-beamng" data-filter-type="game" data-filter-value="beamng">BeamNG</button>
-    <button class="filter-btn game-assetto" data-filter-type="game" data-filter-value="assetto">Assetto</button>
+<div class="filter-group">
+    <span class="filter-label" data-i18n="filter_author"></span>
+    <button class="filter-btn active" data-filter-type="author" data-filter-value="all" data-i18n="filter_all"></button>
+    {% set seenAuthors = [] %}
+    {% for mod in allMods %}
+      {% if mod.data.author and mod.data.author not in seenAuthors %}
+        {% set seenAuthors = (seenAuthors.push(mod.data.author), seenAuthors) %}
+        <button class="filter-btn" data-filter-type="author" data-filter-value="{{ mod.data.author | lower }}">{{ mod.data.author }}</button>
+      {% endif %}
+    {% endfor %}
   </div>
 
   <div class="filter-group">
