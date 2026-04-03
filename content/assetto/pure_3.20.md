@@ -4,7 +4,7 @@ title: "Pure 3.20"
 game: assetto
 category: "App"
 author: "Peter Boese"
-version: "1.0.0"
+version: "3.20.0"
 date: 2026-04-03
 image: "https://c10.patreonusercontent.com/4/patreon-media/p/campaign/5176467/0c71e6610cf24d8497bf7e8b7452be1e/eyJ3IjoxOTIwLCJ3ZSI6MX0%3D/4.png?token-hash=BKd3d-1CiMz06VYBXaWyjxtvBpH2ZeCGBk8WUxAHTnk%3D&token-time=1777852800"
 download: "https://mods.to/D0WV69b7c3ba0b6df"
