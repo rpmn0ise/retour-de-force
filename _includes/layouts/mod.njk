@@ -59,13 +59,44 @@ layout: layouts/base.njk
     <img class="detail-image" src="{{ image }}" alt="{{ title }}" />
   {% endif %}
 
+  <!-- Boutons download + hotfix -->
   {% if download %}
   <div class="detail-download-bar">
-    <span class="detail-source-label">{{ t.card_source }}</span>
-    <span class="detail-source-value">{{ source | default("—") }}</span>
-    <a href="{{ download }}" class="btn-download-main" target="_blank" rel="noopener">
-      ↓ {{ t.detail_download }}
-    </a>
+    <div class="detail-download-buttons">
+      <a href="{{ download }}" class="btn-download-main" target="_blank" rel="noopener">
+        ↓ {{ t.detail_download }} <span class="btn-version">v{{ version }}</span>
+      </a>
+      {% if hotfix %}
+      <a href="{{ hotfix }}" class="btn-hotfix" target="_blank" rel="noopener">
+        ⚡ Hotfix
+      </a>
+      {% endif %}
+    </div>
+    {% if source %}
+    <span class="detail-source-value">{{ source }}</span>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <!-- Historique des versions -->
+  {% if changelog %}
+  <div class="changelog-section">
+    <h2 class="changelog-title" data-i18n="changelog_title">Historique des versions</h2>
+    <div class="changelog-list">
+      {% for entry in changelog %}
+      <div class="changelog-entry {% if loop.first %}changelog-entry--latest{% endif %}">
+        <div class="changelog-entry-left">
+          {% if loop.first %}
+            <span class="changelog-badge">latest</span>
+          {% endif %}
+          <span class="changelog-version">v{{ entry.version }}</span>
+        </div>
+        <a href="{{ entry.url }}" class="changelog-dl" target="_blank" rel="noopener">
+          ↓ Télécharger
+        </a>
+      </div>
+      {% endfor %}
+    </div>
   </div>
   {% endif %}
 
