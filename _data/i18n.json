@@ -36,7 +36,8 @@
     "stats_top_tags": "Top tags",
     "stats_latest": "Dernier mod ajouté",
     "nav_soumettre": "Soumettre",
-    "filter_author": "Auteur"
+    "filter_author": "Auteur",
+    "changelog_title": "Historique des versions"
   },
   "en": {
     "site_name": "Force Feedback",
@@ -75,6 +76,7 @@
     "stats_top_tags": "Top tags",
     "stats_latest": "Latest mod added",
     "nav_soumettre": "Submit",
-    "filter_author": "Author"
+    "filter_author": "Author",
+    "changelog_title": "Version history"
   }
 }
