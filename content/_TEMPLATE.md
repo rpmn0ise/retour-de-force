@@ -1,48 +1,65 @@
 ---
-# ──────────────────────────────────────────────
-# MODVAULT — Template de fiche mod
-# Copier ce fichier, renommer en: nom-du-mod.md
-# ──────────────────────────────────────────────
-
 layout: layouts/mod.njk
 
-# Infos de base (obligatoires)
+# ── INFOS DE BASE (obligatoires) ──────────────────────────────────────────
 title: "Nom du mod"
-game: beamng                      # beamng | assetto
-category: "Véhicule"              # BeamNG: Véhicule, Map, Scénario, Config, Utilitaire
-                                  # Assetto: Voiture, Circuit, Skin, App, Config
+game: beamng                        # beamng | assetto
+category: "Véhicule"                # BeamNG : Véhicule, Map, Scénario, Config, Utilitaire
+                                    # Assetto : Voiture, Circuit, Skin, App, Config
 author: "NomAuteur"
 
-# Versioning
+# ── VERSIONING ─────────────────────────────────────────────────────────────
 version: "1.0.0"
-date: 2024-01-15                  # format YYYY-MM-DD
+date: 2024-01-15                    # YYYY-MM-DD
 
-# Médias
-image: "https://i.imgur.com/XXXXXXX.jpg"   # URL image de preview (16:9 recommandé)
+# ── MÉDIAS ─────────────────────────────────────────────────────────────────
+image: "https://i.imgur.com/XXXXXXX.jpg"
 
-# Téléchargement
-download: "https://lien-vers-le-mod.com"
-source: "Discord #mods-beamng"    # Discord, Google Drive, Nexus, etc.
+# ── TÉLÉCHARGEMENT ─────────────────────────────────────────────────────────
+download: "https://lien-principal.com"
+hotfix: ""                          # Lien hotfix optionnel — laisser vide si aucun
+source: "Discord"
 
-# Tags (pour filtrage)
+# ── TAGS ───────────────────────────────────────────────────────────────────
 tags:
-  - drift
-  - JDM
-  - RWD
+  - tag1
+  - tag2
 
-# SEO (optionnel)
-description: "Courte description du mod pour les moteurs de recherche."
+# ── SEO ────────────────────────────────────────────────────────────────────
+description: "Courte description pour le SEO."
+
+# ── CHANGELOG (optionnel) ──────────────────────────────────────────────────
+# Décommenter et remplir si tu veux afficher l'historique des versions
+# changelog:
+#   - version: "1.0.0"
+#     url: "https://lien-v1.0.0.com"
 ---
 
 ## Description
 
-Présentation complète du mod ici. Markdown supporté : **gras**, *italique*, listes, etc.
+Description complète du mod ici.
 
 ## Installation
 
+<!-- BeamNG -->
 1. Télécharger le fichier `.zip`
-2. Placer dans le dossier `mods/` de BeamNG
-3. Activer dans le gestionnaire de mods in-game
+2. Ouvrir **BeamNG.drive** → **Repository** (icône carton)
+3. Glisser-déposer le `.zip` dans la fenêtre
+4. Activer le mod puis redémarrer le jeu
+
+> Compatible BeamNG.drive 0.30+
+
+<!-- Assetto -->
+<!--
+1. Télécharger le fichier `.zip`
+2. Extraire dans le dossier correspondant :
+   - **Voiture** → `Assetto Corsa/content/cars/`
+   - **Circuit** → `Assetto Corsa/content/tracks/`
+   - **Skin** → `Assetto Corsa/content/cars/NOM/skins/`
+3. Lancer **Content Manager** pour vérifier
+
+> Compatible Assetto Corsa 1.16+ · CSP recommandé
+-->
 
 ## Notes de version
 
@@ -50,4 +67,4 @@ Présentation complète du mod ici. Markdown supporté : **gras**, *italique*, l
 
 ## Crédits
 
-Créé par **NomAuteur**. Testé et validé par l'équipe ModVault.
+Créé par **NomAuteur**. Vérifié et validé par l'équipe Retour de Force.
