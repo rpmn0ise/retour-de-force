@@ -37,7 +37,12 @@
     "stats_latest": "Dernier mod ajouté",
     "nav_soumettre": "Soumettre",
     "filter_author": "Auteur",
-    "changelog_title": "Historique des versions"
+    "changelog_title": "Historique des versions",
+    "nav_nouveautes": "Nouveautés",
+    "new_badge": "Nouveau",
+    "no_new_mods": "Aucun nouveau mod cette semaine.",
+    "see_all_mods": "Voir tous les mods",
+    "detail_see": "Voir la fiche"
   },
   "en": {
     "site_name": "Force Feedback",
@@ -77,6 +82,11 @@
     "stats_latest": "Latest mod added",
     "nav_soumettre": "Submit",
     "filter_author": "Author",
-    "changelog_title": "Version history"
+    "changelog_title": "Version history",
+    "nav_nouveautes": "New",
+    "new_badge": "New",
+    "no_new_mods": "No new mods this week.",
+    "see_all_mods": "Browse all mods",
+    "detail_see": "View mod"
   }
 }
