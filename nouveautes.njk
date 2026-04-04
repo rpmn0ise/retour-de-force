@@ -5,19 +5,7 @@ permalink: /nouveautes/index.html
 title: Nouveautés
 ---
 {% set t = i18n[lang | default('fr')] %}
-{% set allMods = collections.mods %}
-
-{% set cutoff = (page.date.getTime() - 7 * 24 * 60 * 60 * 1000) %}
-
-{% set recentMods = [] %}
-{% for mod in allMods %}
-  {% if mod.data.date %}
-    {% set modTime = mod.data.date | dateToMillis %}
-    {% if modTime >= cutoff %}
-      {% set recentMods = (recentMods.push(mod), recentMods) %}
-    {% endif %}
-  {% endif %}
-{% endfor %}
+{% set recentMods = collections.recent %}
 
 <div data-lang-block="fr">
   <section class="page-hero">
@@ -42,8 +30,8 @@ title: Nouveautés
 
 {% if recentMods.length > 0 %}
 
-  {# Mod mis en avant — le plus récent #}
   {% set featured = recentMods[0] %}
+
   <div class="featured-wrap">
     <div class="featured-card">
       <div class="featured-thumb">
@@ -54,7 +42,7 @@ title: Nouveautés
             {% if featured.data.game === 'beamng' %}🚗{% else %}🏎{% endif %}
           </div>
         {% endif %}
-        <span class="featured-badge" data-i18n="new_badge">Nouveau</span>
+        <span class="featured-new-badge" data-i18n="new_badge">Nouveau</span>
         <span class="card-game-badge badge-{{ featured.data.game }}">
           {% if featured.data.game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
         </span>
@@ -67,9 +55,7 @@ title: Nouveautés
         {% endif %}
         {% if featured.data.tags %}
           <div class="card-tags" style="margin-top:8px;">
-            {% for tag in featured.data.tags %}
-              <span class="tag">{{ tag }}</span>
-            {% endfor %}
+            {% for tag in featured.data.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
           </div>
         {% endif %}
         {% if featured.data.description %}
@@ -89,18 +75,13 @@ title: Nouveautés
     </div>
   </div>
 
-  {# Reste des mods récents (sans le premier) #}
   {% if recentMods.length > 1 %}
-  <div class="nouveautes-rest-label">
-    <span class="page-hero-tag" style="padding: 0 24px;">// cette semaine</span>
-  </div>
-  <div class="mods-grid">
-    {% for mod in recentMods %}
-      {% if not loop.first %}
-        {% include "partials/mod-card.njk" %}
-      {% endif %}
-    {% endfor %}
-  </div>
+    <p class="page-hero-tag" style="padding: 0 24px; margin-bottom: 20px;">// les autres sorties</p>
+    <div class="mods-grid">
+      {% for mod in recentMods %}
+        {% if not loop.first %}{% include "partials/mod-card.njk" %}{% endif %}
+      {% endfor %}
+    </div>
   {% endif %}
 
 {% else %}
@@ -108,7 +89,7 @@ title: Nouveautés
   <div class="nouveautes-empty">
     <div class="no-results-icon">◎</div>
     <p data-i18n="no_new_mods">Aucun nouveau mod cette semaine.</p>
-    <a href="{{ '/' | url }}" class="btn-detail" style="margin-top:16px;">
+    <a href="{{ '/' | url }}" class="btn-detail" style="display:inline-flex;margin-top:16px;">
       ← <span data-i18n="see_all_mods">Voir tous les mods</span>
     </a>
   </div>
