@@ -4,16 +4,19 @@ title: "Mustang S650"
 game: beamng
 category: "Véhicule"
 author: "Royal Rendering"
-version: "1.7"
+version: "1.8"
 date: 2026-04-03
 image: "https://c10.patreonusercontent.com/4/patreon-media/p/post/144831418/a1b8d53082994a2e9de9ad455b81ff2d/eyJxIjoxMDAsIndlYnAiOjB9/1.png?token-hash=-1QDdmR-6D1MBOLv7dzQAQVWyYyUMeBSY4wnOCshNIQ%3D&token-time=1776470400"
-download: "https://zerofs.link/f/eRYhJmdeGqcR24esTbzCdB/"
+download: "https://modsfire.com/UP5092yzQkw5sJ3"
 source: "Discord"
 tags:
   - AWD
   - Ford
   - US
 description: "Ce mod est plein de technologie du monde réel, avec plus de 72 déclencheurs interactables à l'intérieur seul! Et un système d'infodivertissement Mustang natif entièrement fonctionnel, Working Apple Carplay, Working Radio, Subwoofers et bien plus encore!"
+changelog:
+  - version: "1.7"
+    url: "https://mods.to/VKoS69d15f7d27f6d"
 ---
 
 ## Description
