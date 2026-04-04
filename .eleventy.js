@@ -28,6 +28,17 @@ module.exports = function (eleventyConfig) {
        .sort((a, b) => (b.data.date || 0) - (a.data.date || 0))
   );
 
+  eleventyConfig.addCollection("recent", (api) => {
+    const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    return api.getFilteredByGlob("content/**/*.md")
+      .filter(m => !m.inputPath.includes("_TEMPLATE"))
+      .filter(m => {
+        if (!m.data.date) return false;
+        return new Date(m.data.date).getTime() >= cutoff;
+      })
+      .sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+  });
+
   // Filters
   eleventyConfig.addFilter("dateFormat", (date) => {
     if (!date) return "—";
