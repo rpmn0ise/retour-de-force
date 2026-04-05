@@ -1,4 +1,5 @@
-- [ ] pouvoir importer et exporter des .md dans l'outils "soumettre"
-- [ ] pouvoir mettre les hotfix dans le changelog du placeholder, pas seulement dans la version actuelle des mods
+- [x] pouvoir importer et exporter des .md dans l'outils "soumettre"
+- [x] pouvoir mettre les hotfix dans le changelog du placeholder, pas seulement dans la version actuelle des mods
 - [ ] Creer un systeme (avec backend ?) pour donner l'acces a certaine personne. (verification par discord ? code ? autre chose ?) un truc fiable
 - [ ] donner une liste finale de tags, pour chaque jeu
+- [ ] Ajouter un systempe d'avis, ajout de photo, etc
