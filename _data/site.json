@@ -3,6 +3,8 @@
   "base_url": "https://rpmn0ise.github.io/retour-de-force/",
   "default_lang": "fr",
   "games": ["beamng", "assetto"],
+  "supabase_url": "https://fcxeiqoormllykorptxn.supabase.co",
+  "supabase_key": "eyXXXXXXXXXXX",
   "categories": {
     "beamng": ["Véhicule", "Map", "Scénario", "Config", "Utilitaire"],
     "assetto": ["Voiture", "Circuit", "Skin", "App", "Config"]
