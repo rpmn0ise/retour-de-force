@@ -1266,3 +1266,176 @@ ul { list-style: none; }
   .featured-thumb { aspect-ratio: 16/9; }
   .featured-info { padding: 20px; }
 }
+
+
+/* ── GALERIE MOD ─────────────────────────────────────────────────────────── */
+.mod-gallery {
+  margin-bottom: 28px;
+}
+
+.gallery-main {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--c-border);
+  cursor: zoom-in;
+  background: var(--c-surface-2);
+}
+.gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gallery-main:hover img { transform: scale(1.03); }
+
+.gallery-count-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+}
+
+.gallery-zoom-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  font-size: 32px;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(0,0,0,.5);
+  transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+.gallery-main:hover .gallery-zoom-hint { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+
+.gallery-thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.gallery-thumbs::-webkit-scrollbar { height: 4px; }
+.gallery-thumbs::-webkit-scrollbar-track { background: transparent; }
+.gallery-thumbs::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 2px; }
+
+.gallery-thumb {
+  flex-shrink: 0;
+  width: 100px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--c-border);
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.gallery-thumb:hover {
+  border-color: var(--c-accent);
+  transform: translateY(-2px);
+}
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.gallery-thumb:hover img { transform: scale(1.08); }
+
+/* ── LIGHTBOX ─────────────────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.92);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.lightbox.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.lightbox-inner img {
+  max-width: 90vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  transition: opacity .1s ease;
+}
+
+.lightbox-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255,255,255,.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s;
+  z-index: 1001;
+}
+.lightbox-close:hover { background: rgba(255,255,255,.2); }
+
+.lightbox-prev, .lightbox-next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s;
+  z-index: 1001;
+}
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+.lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,.2); }
+
+@media (max-width: 600px) {
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+  .gallery-thumb { width: 80px; height: 45px; }
+}
