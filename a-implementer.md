@@ -1,1 +1,2 @@
 - [ ] pouvoir importer et exporter des .md dans l'outils "soumettre"
+- [ ] Creer un systeme (avec backend ?) pour donner l'acces a certaine personne. (verification par discord ? code ? autre chose ?)
