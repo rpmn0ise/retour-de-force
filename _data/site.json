@@ -4,7 +4,7 @@
   "default_lang": "fr",
   "games": ["beamng", "assetto"],
   "supabase_url": "https://fcxeiqoormllykorptxn.supabase.co",
-  "supabase_key": "eyXXXXXXXXXXX",
+  "supabase_key": "sb_publishable_JtEjqbcAPOICNN7oMVrYRQ_S3o3Urow",
   "categories": {
     "beamng": ["Véhicule", "Map", "Scénario", "Config", "Utilitaire"],
     "assetto": ["Voiture", "Circuit", "Skin", "App", "Config"]
