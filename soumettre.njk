@@ -45,6 +45,8 @@ title: Soumettre un mod
 .hotfix-toggle { display: flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 13px; color: var(--c-text-muted); cursor: pointer; user-select: none; }
 .hotfix-toggle input[type=checkbox] { width: 14px; height: 14px; cursor: pointer; accent-color: var(--c-beamng); }
 .hotfix-toggle:has(input:checked) { color: var(--c-beamng); }
+.gallery-url-entries { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+.gallery-url-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
 .btn-remove-entry { width: 28px; height: 28px; background: none; border: 1px solid var(--c-border); border-radius: var(--radius); color: var(--c-text-dim); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: all .18s; flex-shrink: 0; }
 .btn-remove-entry:hover { border-color: #ef4444; color: #ef4444; }
 .btn-add-entry { display: flex; align-items: center; gap: 6px; padding: 8px 14px; background: none; border: 1px dashed var(--c-border); border-radius: var(--radius); color: var(--c-text-muted); font-family: var(--font-mono); font-size: 12px; cursor: pointer; width: 100%; transition: all .18s; }
@@ -105,7 +107,15 @@ pre#mdPreview { flex: 1; padding: 20px; overflow-y: auto; white-space: pre-wrap;
     </div>
 
     <div class="tool-section-label">Médias & liens</div>
-    <div class="field"><label>URL image <span style="color:var(--c-text-dim)">(Imgur, etc.)</span></label><input type="url" class="tool-input" id="f_image" placeholder="https://i.imgur.com/XXXXXXX.jpg" oninput="generate()"/></div>
+    <div class="field">
+      <label>Image principale <span class="req">*</span> <span style="color:var(--c-text-dim)">(carte + 1ère photo galerie)</span></label>
+      <input type="url" class="tool-input" id="f_image" placeholder="https://i.imgur.com/XXXXXXX.jpg" oninput="generate()"/>
+    </div>
+    <div class="field">
+      <label>Galerie <span style="color:var(--c-text-dim)">(photos supplémentaires, optionnel)</span></label>
+      <div class="gallery-url-entries" id="galleryEntries"></div>
+      <button class="btn-add-entry" onclick="addGalleryEntry()">+ Ajouter une photo</button>
+    </div>
     <div class="field"><label>URL téléchargement <span class="req">*</span></label><input type="url" class="tool-input" id="f_download" placeholder="https://..." oninput="generate()"/></div>
     <div class="field">
       <label>Source</label>
@@ -166,6 +176,7 @@ pre#mdPreview { flex: 1; padding: 20px; overflow-y: auto; white-space: pre-wrap;
 let currentGame = 'beamng';
 let tags = [];
 let changelogEntries = [];
+let galleryUrls = [];
 
 const CATEGORIES = {
   beamng:  ['Véhicule','Map','Scénario','Config','Utilitaire'],
@@ -241,6 +252,27 @@ function renderChangelog() {
   });
 }
 
+function addGalleryEntry(url) {
+  galleryUrls.push({ id: Date.now()+Math.random(), url: url||'' });
+  renderGallery(); generate();
+}
+function removeGalleryEntry(id) {
+  galleryUrls = galleryUrls.filter(e=>e.id!==id);
+  renderGallery(); generate();
+}
+function renderGallery() {
+  const c = document.getElementById('galleryEntries');
+  c.innerHTML = '';
+  galleryUrls.forEach((entry, i) => {
+    const row = document.createElement('div');
+    row.className = 'gallery-url-row';
+    row.innerHTML =
+      '<input type="url" class="tool-input" placeholder="https://i.imgur.com/photo.jpg" value="'+entry.url+'" oninput="galleryUrls['+i+'].url=this.value;generate()" style="font-size:12px;padding:6px 10px;"/>'+
+      '<button class="btn-remove-entry" onclick="removeGalleryEntry('+entry.id+')">×</button>';
+    c.appendChild(row);
+  });
+}
+
 function slugify(s) {
   return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')||'nom-du-mod';
 }
@@ -255,6 +287,8 @@ function parseFrontmatter(text) {
   });
   const tagsM = raw.match(/^tags:\n((?:  - .+\n?)*)/m);
   if (tagsM) fm.tags = (tagsM[1].match(/  - (.+)/g)||[]).map(l=>l.replace('  - ','').trim());
+  const imgsM = raw.match(/^images:\n((?:  - .+\n?)*)/m);
+  if (imgsM) fm.images = (imgsM[1].match(/  - (.+)/g)||[]).map(l=>l.replace('  - ','').trim().replace(/^"|"$/g,''));
   const clM = raw.match(/^changelog:\n([\s\S]*?)(?=\n[a-z]|\n---|$)/m);
   if (clM) {
     const entries = [], re = /- version:\s*"?([^"\n]*)"?\n\s+url:\s*"?([^"\n]*)"?(?:\n\s+hotfix:\s*(true))?/g;
@@ -291,6 +325,9 @@ function importMd(input) {
     if (fm.category) { const o = Array.from(catSel.options).find(o=>o.value===fm.category); if(o) o.selected=true; }
     document.querySelectorAll('.source-pill').forEach(p=>p.classList.toggle('active', p.textContent.trim()===(fm.source||'Discord')));
     tags = fm.tags || []; renderTags();
+    galleryUrls = [];
+    if (fm.images) fm.images.forEach(url => galleryUrls.push({ id: Date.now()+Math.random(), url }));
+    renderGallery();
     if (fm._body) {
       const dm = fm._body.match(/## Description\n\n([\s\S]*?)(?=\n## |$)/);
       if (dm) document.getElementById('f_longdesc').value = dm[1].trim();
@@ -316,6 +353,8 @@ function getRaw() {
   const body = long || desc || 'Description à compléter.';
   const hotfixEntry = changelogEntries.find(e=>e.isHotfix && e.url.trim());
   const hotfixLine  = hotfixEntry ? '\nhotfix: "'+hotfixEntry.url.trim()+'"' : '';
+  const validImgs = galleryUrls.filter(e=>e.url.trim());
+  const imagesBlock = validImgs.length > 0 ? '\nimages:\n'+validImgs.map(e=>'  - "'+e.url.trim()+'"').join('\n') : '';
   const validEntries = changelogEntries.filter(e=>e.version.trim());
   let changelogBlock = '';
   if (validEntries.length > 0) {
@@ -329,17 +368,16 @@ function getRaw() {
   return '---\nlayout: layouts/mod.njk\ntitle: "'+
     (title||'Titre du mod')+'"\ngame: '+currentGame+'\ncategory: "'+cat+'"\nauthor: "'+
     (author||'Auteur')+'"\nversion: "'+ver+'"\ndate: '+(date||new Date().toISOString().split('T')[0])+
-    '\nimage: "'+image+'"\ndownload: "'+dl+'"'+hotfixLine+'\nsource: "'+src+
-    '"\ntags:\n'+tagList+'\ndescription: "'+(desc||'Description courte.')+'"'+
-    changelogBlock+'\n---\n\n## Description\n\n'+body+'\n\n'+INSTALL[currentGame]+
+    '\nimage: "'+image+'"'+imagesBlock+'\ndownload: "'+dl+'"'+hotfixLine+'\nsource: "'+src+
+    '"\ntags:\n'+tagList+'\ndescription: "'+(desc||'Description courte.')+'"\'+changelogBlock+'\n---\n\n## Description\n\n'+body+'\n\n'+INSTALL[currentGame]+
     '\n\n## Notes de version\n\n- **v'+ver+'** — Version initiale\n\n## Crédits\n\nCréé par **'+
     (author||'Auteur')+'**. Vérifié et validé par l\'équipe Retour de Force.\n';
 }
 
 function highlight(r) {
   return r
-    .replace(/^(layout|title|game|category|author|version|date|image|download|hotfix|source|description|changelog):/gm,m=>'<span class="md-key">'+m+'</span>')
-    .replace(/^(tags:|changelog:|-{3})/gm,m=>'<span class="md-tag">'+m+'</span>')
+    .replace(/^(layout|title|game|category|author|version|date|image|images|download|hotfix|source|description|changelog):/gm,m=>'<span class="md-key">'+m+'</span>')
+    .replace(/^(tags:|images:|changelog:|-{3})/gm,m=>'<span class="md-tag">'+m+'</span>')
     .replace(/^  - .+/gm,m=>'<span class="md-tag">'+m+'</span>')
     .replace(/^## .+/gm,m=>'<span class="md-h2">'+m+'</span>')
     .replace(/^> .+/gm,m=>'<span class="md-quote">'+m+'</span>')
