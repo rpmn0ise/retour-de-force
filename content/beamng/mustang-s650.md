@@ -3,7 +3,7 @@ layout: layouts/mod.njk
 title: "Mustang S650"
 game: beamng
 category: "Véhicule"
-author: "Royal Rendering"
+author: "Royal Renderings"
 version: "1.8"
 date: 2026-04-03
 image: "https://c10.patreonusercontent.com/4/patreon-media/p/post/144831418/a1b8d53082994a2e9de9ad455b81ff2d/eyJxIjoxMDAsIndlYnAiOjB9/1.png?token-hash=OTDUQ3oHOKBHPewMPN8ydBefCEFOcA7zCAp_Guwsi6A%3D&token-time=1776643200"
