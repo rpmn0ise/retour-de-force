@@ -3,7 +3,7 @@ layout: layouts/mod.njk
 title: "Volumetric Backfire"
 game: beamng
 category: "Utilitaire"
-author: "Royal Renderongs"
+author: "Royal Renderings"
 version: "1.0.0"
 date: 2026-04-18
 image: "https://i.imgur.com/lfdTUW0.jpeg"
