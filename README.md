@@ -14,7 +14,7 @@ Plateforme de référencement de mods vérifiés pour **BeamNG.drive** et **Asse
 | GitHub Actions | Déploiement automatique |
 | Markdown | Format de contenu |
 
-Zéro base de données. Zéro CMS. Zéro dépendance runtime.
-
-
+Zéro base de données. Zéro CMS. Zéro dépendance runtime.  
+  
+  
 (retrait des mods assetto corsa prévu, je prefère me focaliser sur BeamNG.drive)
