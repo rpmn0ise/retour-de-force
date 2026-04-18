@@ -1,6 +1,7 @@
 # Retour de Force
 
-Plateforme de référencement de mods vérifiés pour **BeamNG.drive** et **Assetto Corsa**.  
+Plateforme de référencement de mods vérifiés pour **BeamNG.drive** et **Assetto Corsa** (retrait des mods assetto corsa prévu, je prefère me focaliser sur BeamNG.drive).
+
 
 🔗 **Site en ligne** : [rpmn0ise.github.io/retour-de-force](https://rpmn0ise.github.io/retour-de-force/)
 
@@ -17,4 +18,3 @@ Plateforme de référencement de mods vérifiés pour **BeamNG.drive** et **Asse
 Zéro base de données. Zéro CMS. Zéro dépendance runtime.  
   
   
-(retrait des mods assetto corsa prévu, je prefère me focaliser sur BeamNG.drive)
