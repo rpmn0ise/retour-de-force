@@ -22,7 +22,7 @@ changelog:
   - version: "1.9"
     url: ""
   - version: "1.8"
-    url: "https://modsfire.com/UP5092yzQkw5sJ3"
+    url: "https://mods.to/Zno869e3502d8a4af"
   - version: "1.7"
     url: "https://mods.to/VKoS69d15f7d27f6d"
 ---
