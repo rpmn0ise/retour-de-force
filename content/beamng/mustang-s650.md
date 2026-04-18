@@ -20,7 +20,7 @@ tags:
 description: "Ce mod est plein de technologie du monde réel, avec plus de 72 déclencheurs interactables à l'intérieur seul! Et un système d'infodivertissement Mustang natif entièrement fonctionnel, Working Apple Carplay, Working Radio, Subwoofers et bien plus encore!"
 changelog:
   - version: "1.9"
-    url: ""
+    url: "no url"
   - version: "1.8"
     url: "https://mods.to/Zno869e3502d8a4af"
   - version: "1.7"
