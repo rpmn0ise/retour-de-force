@@ -333,7 +333,6 @@ ul { list-style: none; }
   font-weight: 500;
 }
 .filter-btn.game-beamng.active { background: var(--c-beamng); border-color: var(--c-beamng); color: #fff; }
-.filter-btn.game-assetto.active { background: var(--c-assetto); border-color: var(--c-assetto); color: #fff; }
 
 .sort-select {
   height: 34px;
@@ -932,7 +931,6 @@ ul { list-style: none; }
   min-width: 60px;
 }
 .split-bar__beamng  { background: var(--c-beamng);  color: #fff; }
-.split-bar__assetto { background: var(--c-assetto); color: #fff; }
 
 .category-list { display: flex; flex-direction: column; gap: 10px; }
 .category-row {
@@ -959,7 +957,6 @@ ul { list-style: none; }
   min-width: 8px;
 }
 .category-bar--beamng  { background: var(--c-beamng); }
-.category-bar--assetto { background: var(--c-assetto); }
 .category-count {
   font-family: var(--font-mono);
   font-size: 12px;

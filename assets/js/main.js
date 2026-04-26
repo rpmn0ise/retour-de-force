@@ -79,7 +79,6 @@ document.addEventListener("click", (e) => {
   const sortSelect = document.getElementById("modSort");
   const noResults = document.getElementById("noResults");
 
-  let activeGame = "all";
   let activeAuthor = "all";
   let activeTags = new Set();
   let searchTerm = "";
@@ -90,13 +89,11 @@ document.addEventListener("click", (e) => {
 
     cards.forEach((card) => {
       const title    = card.dataset.title    || "";
-      const game     = card.dataset.game     || "";
       const category = card.dataset.category || "";
       const tags     = card.dataset.tags     || "";
       const author   = card.dataset.author   || "";
       const date     = card.dataset.date     || "0";
 
-      const matchGame   = activeGame === "all" || game === activeGame;
       const matchAuthor = activeAuthor === "all" || author === activeAuthor;
       const matchSearch = !searchTerm ||
         title.includes(searchTerm) ||
@@ -106,7 +103,7 @@ document.addEventListener("click", (e) => {
       const matchTags = activeTags.size === 0 ||
         [...activeTags].every(t => tags.includes(t));
 
-      if (matchGame && matchAuthor && matchSearch && matchTags) {
+      if (matchAuthor && matchSearch && matchTags) {
         card.classList.remove("hidden");
         visible.push({ card, date, title });
       } else {
@@ -135,13 +132,6 @@ document.addEventListener("click", (e) => {
     btn.addEventListener("click", () => {
       const type = btn.dataset.filterType;
       const val  = btn.dataset.filterValue;
-
-      if (type === "game") {
-        activeGame = val;
-        document.querySelectorAll('[data-filter-type="game"]')
-          .forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-      }
 
       if (type === "author") {
         activeAuthor = val;

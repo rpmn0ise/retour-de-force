@@ -39,13 +39,11 @@ title: Nouveautés
           <img src="{{ featured.data.image }}" alt="{{ featured.data.title }}" />
         {% else %}
           <div class="featured-thumb-placeholder">
-            {% if featured.data.game === 'beamng' %}🚗{% else %}🏎{% endif %}
+            🚗
           </div>
         {% endif %}
         <span class="featured-new-badge" data-i18n="new_badge">Nouveau</span>
-        <span class="card-game-badge badge-{{ featured.data.game }}">
-          {% if featured.data.game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
-        </span>
+
       </div>
       <div class="featured-info">
         <span class="card-category">{{ featured.data.category }}</span>

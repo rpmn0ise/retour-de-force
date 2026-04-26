@@ -88,10 +88,7 @@ pre#mdPreview { flex: 1; padding: 20px; overflow-y: auto; white-space: pre-wrap;
       <span class="import-feedback" id="importFeedback"></span>
     </div>
 
-    <div class="game-selector">
-      <button class="game-btn active-beamng" id="btnBeamng" onclick="setGame('beamng')">BeamNG.drive<span>Véhicule · Map · Scénario · Config</span></button>
-      <button class="game-btn" id="btnAssetto" onclick="setGame('assetto')">Assetto Corsa<span>Voiture · Circuit · Skin · App</span></button>
-    </div>
+
 
     <div class="tool-section-label">Infos de base</div>
     <div class="field"><label>Titre du mod <span class="req">*</span></label><input type="text" class="tool-input" id="f_title" placeholder="ex: Toyota AE86 Trueno Drift Build" oninput="generate()"/></div>
@@ -168,24 +165,17 @@ let tags = [];
 let changelogEntries = [];
 
 const CATEGORIES = {
-  beamng:  ['Véhicule','Map','Scénario','Config','Utilitaire'],
-  assetto: ['Voiture','Circuit','Skin','App','Config'],
+  beamng: ['Véhicule','Map','Scénario','Config','Utilitaire'],
 };
 
-const INSTALL = {
-  beamng:  "## Installation\n\n1. Télécharger le fichier `.zip`\n2. Ouvrir **BeamNG.drive** → **Repository** (icône carton)\n3. Glisser-déposer le `.zip` dans la fenêtre\n4. Activer le mod puis redémarrer le jeu\n\n> Compatible BeamNG.drive 0.30+",
-  assetto: "## Installation\n\n1. Télécharger le fichier `.zip`\n2. Extraire dans le dossier correspondant :\n   - **Voiture** → `Assetto Corsa/content/cars/`\n   - **Circuit** → `Assetto Corsa/content/tracks/`\n   - **Skin** → `Assetto Corsa/content/cars/NOM/skins/`\n3. Lancer **Content Manager** pour vérifier\n\n> Compatible AC 1.16+ · CSP recommandé",
-};
+const INSTALL = "## Installation\n\n1. Télécharger le fichier `.zip`\n2. Ouvrir **BeamNG.drive** → **Repository** (icône carton)\n3. Glisser-déposer le `.zip` dans la fenêtre\n4. Activer le mod puis redémarrer le jeu\n\n> Compatible BeamNG.drive 0.30+";
 
 document.getElementById('f_date').value = new Date().toISOString().split('T')[0];
-const urlGame = new URLSearchParams(window.location.search).get('game');
-setGame((urlGame === 'assetto' || urlGame === 'beamng') ? urlGame : 'beamng');
+setGame('beamng');
 
 function setGame(g) {
-  currentGame = g;
-  document.getElementById('btnBeamng').className = 'game-btn' + (g==='beamng' ? ' active-beamng' : '');
-  document.getElementById('btnAssetto').className = 'game-btn' + (g==='assetto' ? ' active-assetto' : '');
-  document.getElementById('f_category').innerHTML = CATEGORIES[g].map(c=>`<option>${c}</option>`).join('');
+  currentGame = 'beamng';
+  document.getElementById('f_category').innerHTML = CATEGORIES['beamng'].map(c=>`<option>${c}</option>`).join('');
   generate();
 }
 
@@ -331,7 +321,7 @@ function getRaw() {
     (author||'Auteur')+'"\nversion: "'+ver+'"\ndate: '+(date||new Date().toISOString().split('T')[0])+
     '\nimage: "'+image+'"\ndownload: "'+dl+'"'+hotfixLine+'\nsource: "'+src+
     '"\ntags:\n'+tagList+'\ndescription: "'+(desc||'Description courte.')+'"'+
-    changelogBlock+'\n---\n\n## Description\n\n'+body+'\n\n'+INSTALL[currentGame]+
+    changelogBlock+'\n---\n\n## Description\n\n'+body+'\n\n'+INSTALL+
     '\n\n## Notes de version\n\n- **v'+ver+'** — Version initiale\n\n## Crédits\n\nCréé par **'+
     (author||'Auteur')+'**. Vérifié et validé par l\'équipe Retour de Force.\n';
 }
@@ -348,7 +338,7 @@ function highlight(r) {
 
 function generate() {
   const raw=getRaw(), fn=slugify(document.getElementById('f_title').value.trim())+'.md';
-  document.getElementById('previewFilename').textContent = 'content/'+currentGame+'/'+fn;
+  document.getElementById('previewFilename').textContent = 'content/beamng/'+fn;
   document.getElementById('previewFilename2').textContent = fn;
   document.getElementById('mdPreview').innerHTML = highlight(raw);
 }

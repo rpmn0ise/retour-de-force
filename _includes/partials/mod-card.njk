@@ -3,7 +3,6 @@
 <article
   class="mod-card"
   data-title="{{ mod.data.title | lower }}"
-  data-game="{{ mod.data.game }}"
   data-category="{{ mod.data.category | lower }}"
   data-tags="{{ mod.data.tags | join(',') | lower }}"
   data-author="{{ mod.data.author | lower }}"
@@ -13,13 +12,8 @@
     {% if mod.data.image %}
       <img src="{{ mod.data.image }}" alt="{{ mod.data.title }}" loading="lazy" />
     {% else %}
-      <div class="card-thumb-placeholder">
-        {% if mod.data.game === 'beamng' %}🚗{% else %}🏎{% endif %}
-      </div>
+      <div class="card-thumb-placeholder">🚗</div>
     {% endif %}
-    <span class="card-game-badge badge-{{ mod.data.game }}">
-      {% if mod.data.game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
-    </span>
     <span class="card-verified" title="{{ t.badge_verified }}">✓</span>
   </div>
 

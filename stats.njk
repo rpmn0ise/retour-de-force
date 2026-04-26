@@ -6,8 +6,6 @@ title: Stats
 ---
 
 {% set allMods = collections.mods %}
-{% set beamngMods = collections.beamng %}
-{% set assettoMods = collections.assetto %}
 
 {% set allTags = [] %}
 {% for mod in allMods %}
@@ -22,7 +20,7 @@ title: Stats
     <section class="page-hero">
       <p class="page-hero-tag">// stats</p>
       <h1>Statistiques</h1>
-      <p class="page-hero-sub">État de la collection en temps réel.</p>
+      <p class="page-hero-sub">État de la collection · mis à jour à chaque ajout.</p>
     </section>
   </div>
   <div data-lang-block="en">
@@ -39,69 +37,24 @@ title: Stats
       <span class="stat-label" data-i18n="stats_total">Total mods</span>
     </div>
     <div class="stat-card stat-card--beamng">
-      <span class="stat-number">{{ beamngMods.length }}</span>
-      <span class="stat-label">BeamNG.drive</span>
-    </div>
-    <div class="stat-card stat-card--assetto">
-      <span class="stat-number">{{ assettoMods.length }}</span>
-      <span class="stat-label">Assetto Corsa</span>
-    </div>
-    <div class="stat-card stat-card--tags">
       <span class="stat-number">{{ allTags.length }}</span>
       <span class="stat-label" data-i18n="stats_tags_total">Tags utilisés</span>
     </div>
   </div>
 
   <div class="stats-section">
-    <h2 class="stats-section-title" data-i18n="stats_repartition">Répartition</h2>
-    <div class="split-bar-wrap">
-      <div class="split-bar">
-        {% if allMods.length > 0 %}
-          <div class="split-bar__beamng" style="width: {{ (beamngMods.length / allMods.length * 100) | round }}%">
-            <span>BeamNG {{ (beamngMods.length / allMods.length * 100) | round }}%</span>
-          </div>
-          <div class="split-bar__assetto" style="width: {{ (assettoMods.length / allMods.length * 100) | round }}%">
-            <span>Assetto {{ (assettoMods.length / allMods.length * 100) | round }}%</span>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-
-  <div class="stats-section">
-    <h2 class="stats-section-title">BeamNG — <span data-i18n="stats_by_category">par catégorie</span></h2>
+    <h2 class="stats-section-title" data-i18n="stats_by_category">Par catégorie</h2>
     <div class="category-list">
-      {% for cat in site.categories.beamng %}
+      {% for cat in site.categories %}
         {% set count = 0 %}
-        {% for mod in beamngMods %}
+        {% for mod in allMods %}
           {% if mod.data.category == cat %}{% set count = count + 1 %}{% endif %}
         {% endfor %}
         {% if count > 0 %}
         <div class="category-row">
           <span class="category-name">{{ cat }}</span>
           <div class="category-bar-wrap">
-            <div class="category-bar category-bar--beamng" style="width: {{ (count / beamngMods.length * 100) | round }}%"></div>
-          </div>
-          <span class="category-count">{{ count }}</span>
-        </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="stats-section">
-    <h2 class="stats-section-title">Assetto Corsa — <span data-i18n="stats_by_category">par catégorie</span></h2>
-    <div class="category-list">
-      {% for cat in site.categories.assetto %}
-        {% set count = 0 %}
-        {% for mod in assettoMods %}
-          {% if mod.data.category == cat %}{% set count = count + 1 %}{% endif %}
-        {% endfor %}
-        {% if count > 0 %}
-        <div class="category-row">
-          <span class="category-name">{{ cat }}</span>
-          <div class="category-bar-wrap">
-            <div class="category-bar category-bar--assetto" style="width: {{ (count / assettoMods.length * 100) | round }}%"></div>
+            <div class="category-bar category-bar--beamng" style="width: {{ (count / allMods.length * 100) | round }}%"></div>
           </div>
           <span class="category-count">{{ count }}</span>
         </div>
@@ -130,9 +83,6 @@ title: Stats
         <img src="{{ latest.data.image }}" alt="{{ latest.data.title }}" class="latest-mod-img" />
       {% endif %}
       <div class="latest-mod-info">
-        <span class="card-game-badge badge-{{ latest.data.game }}" style="position:relative;top:0;left:0;">
-          {% if latest.data.game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
-        </span>
         <h3 class="latest-mod-title">{{ latest.data.title }}</h3>
         <span class="latest-mod-meta">{{ latest.data.author }} · {{ latest.data.date | dateFormat }}</span>
       </div>

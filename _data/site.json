@@ -1,12 +1,6 @@
 {
   "site_name": "Retour de Force",
-  "base_url": "https://rpmn0ise.github.io/retour-de-force/",
+  "base_url": "https://rpmn0ise.github.io/retour-de-force",
   "default_lang": "fr",
-  "games": ["beamng", "assetto"],
-  "supabase_url": "https://fcxeiqoormllykorptxn.supabase.co",
-  "supabase_key": "sb_publishable_JtEjqbcAPOICNN7oMVrYRQ_S3o3Urow",
-  "categories": {
-    "beamng": ["Véhicule", "Map", "Scénario", "Config", "Utilitaire"],
-    "assetto": ["Voiture", "Circuit", "Skin", "App", "Config"]
-  }
+  "categories": ["Véhicule", "Map", "Scénario", "Config", "Utilitaire"]
 }

@@ -10,14 +10,12 @@ layout: layouts/base.njk
   <div class="detail-header">
     <div>
       <p class="detail-tag">
-        {% if game === 'beamng' %}BeamNG.drive{% else %}Assetto Corsa{% endif %}
+        BeamNG.drive
         {% if category %} · {{ category }}{% endif %}
       </p>
       <h1 class="detail-title">{{ title }}</h1>
     </div>
-    <span class="card-game-badge badge-{{ game }}" style="position:relative;top:0;left:0;align-self:start;flex-shrink:0;">
-      {% if game === 'beamng' %}BeamNG{% else %}Assetto{% endif %}
-    </span>
+
   </div>
 
   <div class="detail-meta-grid">
