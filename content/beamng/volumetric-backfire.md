@@ -4,15 +4,17 @@ title: "Volumetric Backfire"
 game: beamng
 category: "Utilitaire"
 author: "Royal Renderings"
-version: "1.1.0"
+version: "1.2.0"
 date: 2026-04-18
 image: "https://i.imgur.com/lfdTUW0.jpeg"
-download: "https://mods.to/vyqW69ebcf437dd2e"
+download: "https://modsfire.com/X2G260gyTblU43m"
 source: "Mods.to"
 tags:
   - (aucun tag)
 description: "Mod universel ajoutant des retours de flamme volumétriques dynamiques et réalistes à tous les véhicules thermiques, pour un rendu plus agressif et immersif."
 changelog:
+  - version: "1.1"
+    url: "https://mods.to/vyqW69ebcf437dd2e"
   - version: "1.0"
     url: "https://mods.to/2N6O69e3dae95761c"
 ---
