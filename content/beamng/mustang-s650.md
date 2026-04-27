@@ -6,7 +6,7 @@ category: "Véhicule"
 author: "Royal Renderings"
 version: "2.0"
 date: 2026-04-03
-image: "https://c10.patreonusercontent.com/4/patreon-media/p/post/144831418/a1b8d53082994a2e9de9ad455b81ff2d/eyJxIjoxMDAsIndlYnAiOjB9/1.png?token-hash=OTDUQ3oHOKBHPewMPN8ydBefCEFOcA7zCAp_Guwsi6A%3D&token-time=1776643200"
+image: "/assets/mods/mustangs650_01.png"
 images:
   - "https://c10.patreonusercontent.com/4/patreon-media/p/post/144831418/eae74747c42f48d3971ff3ed3af8cd11/eyJxIjoxMDAsIndlYnAiOjB9/1.jpg?token-hash=hoU6nBJT4XdO-ZxUwcbqa9yUAxpP5oIDrhZzPADvBTE%3D&token-time=1776643200"
   - "https://c10.patreonusercontent.com/4/patreon-media/p/post/144831418/1376f41e9b6c4fa38533b0db0af8195c/eyJxIjoxMDAsIndlYnAiOjB9/1.png?token-hash=MkNkyy5lTPLI0nb5mMiTokxBzB1BQ1jGMiKyvq8XUtw%3D&token-time=1776643200"
