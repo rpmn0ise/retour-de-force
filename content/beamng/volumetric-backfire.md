@@ -6,7 +6,14 @@ category: "Utilitaire"
 author: "Royal Renderings"
 version: "1.1.0"
 date: 2026-04-18
-image: "https://i.imgur.com/lfdTUW0.jpeg"
+image: "https://i.imgur.com/9c54WqM.jpeg"
+images:
+  - "https://i.imgur.com/jxGdIRg.jpeg"
+  - "https://i.imgur.com/UQYWJxV.jpeg"
+  - "https://i.imgur.com/6h43i4N.png"
+  - "https://i.imgur.com/ZZO3CQA.jpeg"
+  - "https://i.imgur.com/7kbfD3N.png"
+  - "https://i.imgur.com/PFygjgo.png"
 download: "https://mods.to/vyqW69ebcf437dd2e"
 source: "Mods.to"
 tags:
